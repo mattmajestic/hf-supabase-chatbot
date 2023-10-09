@@ -1,6 +1,13 @@
 import streamlit as st
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from datetime import datetime
+import supabase
+
+# Set your Supabase credentials as environment variables
+SUPABASE_URL = os.getenv("SUPABASE_URL")
+SUPABASE_KEY = os.getenv("SUPABASE_KEY")
+# Initialize Supabase
+supabase_client = supabase.Client(SUPABASE_URL, SUPABASE_KEY)
 
 def ai_chat():
     st.title("HuggingFace + Supabase Chatbot ⚡")
@@ -28,6 +35,12 @@ def ai_chat():
             bot_response = generate_response(prompt)
             st.write(f"User has sent the following prompt: {prompt}")
             st.write("Bot:", bot_response)
+            response = supabase_client.table("hf-supabase-chat").insert([{"prompt": prompt, "created_at": datetime.now().isoformat(),"prompt_detail":prompt_detail}]).execute()
+
+if __name__ == '__main__':
+    ai_chat()
+
+
 
 if __name__ == '__main__':
     ai_chat()
