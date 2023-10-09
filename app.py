@@ -23,6 +23,7 @@ def ai_chat():
     prompt = st.chat_input("Talk to me")
     with st.spinner("Generating Bot Response..."):
         if prompt:
+            st.write(f"User has sent the following prompt: {prompt}")
             model_name = "gpt2"  
             model = AutoModelForCausalLM.from_pretrained(model_name)
             tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -32,7 +33,6 @@ def ai_chat():
                 bot_response = tokenizer.decode(response_ids[0], skip_special_tokens=True)
                 return bot_response
             bot_response = generate_response(prompt)
-            st.write(f"User has sent the following prompt: {prompt}")
             st.write("")
             st.write("Bot:", bot_response)
             response = supabase_client.table("hf-supabase-chat").insert([{"prompt": prompt, "created_at": datetime.now().isoformat()}]).execute()
