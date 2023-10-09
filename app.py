@@ -34,7 +34,7 @@ def ai_chat():
             bot_response = generate_response(prompt)
             st.write(f"User has sent the following prompt: {prompt}")
             st.write("Bot:", bot_response)
-            response = supabase_client.table("hf-supabase-chat").insert([{"prompt": prompt, "created_at": datetime.now().isoformat(),"prompt_detail":prompt_detail}]).execute()
+            response = supabase_client.table("hf-supabase-chat").insert([{"prompt": prompt, "created_at": datetime.now().isoformat()}]).execute()
 
 if __name__ == '__main__':
     ai_chat()
