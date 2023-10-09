@@ -20,7 +20,7 @@ def ai_chat():
             readme_text = file.read()
         st.markdown(readme_text)
 
-    prompt = st.chat_input("Talk to me",key="prompt_key")
+    prompt = st.chat_input("Talk to me")
     with st.spinner("Generating Bot Response..."):
         if prompt:
             model_name = "gpt2"  
@@ -33,6 +33,7 @@ def ai_chat():
                 return bot_response
             bot_response = generate_response(prompt)
             st.write(f"User has sent the following prompt: {prompt}")
+            st.write("")
             st.write("Bot:", bot_response)
             response = supabase_client.table("hf-supabase-chat").insert([{"prompt": prompt, "created_at": datetime.now().isoformat()}]).execute()
 
