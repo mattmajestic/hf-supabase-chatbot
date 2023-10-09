@@ -22,8 +22,6 @@ def ai_chat():
 
     prompt = st.chat_input("Talk to me",key="prompt_key")
     with st.spinner("Generating Bot Response..."):
-        default_prompt = "This is a chatbot for @majesticodding YouTube channel with partner @supabase"
-        prompt_detail = st.text_area("Enter a Prompt for AI 📣", default_prompt)
         if prompt:
             model_name = "gpt2"  
             model = AutoModelForCausalLM.from_pretrained(model_name)
