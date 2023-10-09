@@ -29,7 +29,7 @@ def ai_chat():
             def generate_response(prompt):
                 input_ids = tokenizer.encode(prompt, return_tensors="pt")
                 response_ids = model.generate(input_ids, max_length=100, num_return_sequences=1)
-                bot_response = tokenizer.decode(response_ids[0], skip_special_tokens=True)
+                bot_response = tokenizer.decode(response_ids, skip_special_tokens=True)
                 return bot_response
             bot_response = generate_response(prompt)
             st.write(f"User has sent the following prompt: {prompt}")
