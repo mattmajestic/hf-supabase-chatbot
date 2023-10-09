@@ -1,3 +1,4 @@
 transformers
 streamlit
 supabase
+torch
